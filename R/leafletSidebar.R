@@ -15,6 +15,7 @@ leafletSidebarDependency <- function() {
 #' Types of events: Opening, closing and content
 #'
 #' @param map a map widget object
+#' @param id character id
 #' @param options list of options, e.g. `options = list(position = "right")`
 #' @return modified map
 #' @import htmltools
@@ -28,29 +29,66 @@ leafletSidebarDependency <- function() {
 #' <p>A responsive sidebar for <a href="http://leafletjs.com/">Leaflet</a>.</p>
 #' '
 #' pane2 <- '<h1 class="sidebar-header">Tab2<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>'
-#' leaflet() %>% addTiles() %>% addLeafletSidebar(options = list(position = "right")) %>% 
-#'   addPanel(layerId = "Tab1", tab_name = "Tab1", pane = pane)
+#' leaflet() %>% addTiles() %>% addLeafletSidebar(id = "a", options = list(position = "right")) %>% 
+#'   addPanel(sidebarId = "a", layerId = "Tab1", tab_name = "Tab1", pane = pane1)
 #' 
 #' }
 #' 
-addLeafletSidebar <- function(map, options) {
+addLeafletSidebar <- function(map, id, options = NULL) {
   map$dependencies <- c(map$dependencies, leafletSidebarDependency())
-  invokeMethod(map, getMapData(map), 'addLeafletSidebar', options)
+  invokeMethod(map, getMapData(map), 'addLeafletSidebar', id, options)
+}
+
+#' @rdname addLeafletSidebar
+#' @export
+#'
+#' @examples
+#' library(leaflet)
+#' leaflet() %>% addTiles() %>% addLeafletSidebar(id = "a", options = list(position = "right")) %>% 
+#'   removeLeafletSidebar()
+removeLeafletSidebar <- function(map) { # sidebar_id
+  map$dependencies <- c(map$dependencies, leafletSidebarDependency())
+  invokeMethod(map, getMapData(map), 'removeLeafletSidebar')
+}
+
+#' @rdname addLeafletSidebar
+#' @export
+openLeafletSidebar <- function(map, tab_id) { # sidebar_id
+  map$dependencies <- c(map$dependencies, leafletSidebarDependency())
+  invokeMethod(map, getMapData(map), 'openLeafletSidebar', tab_id)
+}
+
+#' @rdname addLeafletSidebar
+#' @export
+closeLeafletSidebar <- function(map) { # sidebar_id
+  map$dependencies <- c(map$dependencies, leafletSidebarDependency())
+  invokeMethod(map, getMapData(map), 'closeLeafletSidebar')
 }
 
 
 #' Add panel to leaflet sidebar
 #'
 #' @inheritParams addLeafletSidebar
-#' @param tab_name character the name of the tab
+#' @param sidebarId id of the sidebar
+#' @param layerId id of the panel
+#' @param tab_name character the name of the panel
+#' @param pane character html content
 #' @param position character: top or bottom
 #'
 #' @return modified map
 #' @export
-addPanel <- function(map, layerId, tab_name, pane, position = "top") {
+addPanel <- function(map, sidebarId, layerId, tab_name, pane, position = "top") {
   map$dependencies <- c(map$dependencies, leafletSidebarDependency())
-  invokeMethod(map, getMapData(map), 'addPanel', layerId, tab_name, position)
+  invokeMethod(map, getMapData(map), 'addPanel', sidebarId, layerId, tab_name, pane, position)
 }
+
+#' @rdname addPanel
+#' @export
+removePanel <- function(map, sidebarId, layerId, tab_name) {
+  map$dependencies <- c(map$dependencies, leafletSidebarDependency())
+  invokeMethod(map, getMapData(map), 'removePanel', sidebarId, layerId, tab_name)
+}
+
 
 # sidebar.addPanel(panelContent);
 #   sidebar.removePanel('userinfo');

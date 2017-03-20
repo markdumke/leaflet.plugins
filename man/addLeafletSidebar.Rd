@@ -2,12 +2,23 @@
 % Please edit documentation in R/leafletSidebar.R
 \name{addLeafletSidebar}
 \alias{addLeafletSidebar}
+\alias{removeLeafletSidebar}
+\alias{openLeafletSidebar}
+\alias{closeLeafletSidebar}
 \title{Add responsive sidebar to a leaflet map}
 \usage{
-addLeafletSidebar(map, options)
+addLeafletSidebar(map, id, options = NULL)
+
+removeLeafletSidebar(map)
+
+openLeafletSidebar(map, tab_id)
+
+closeLeafletSidebar(map)
 }
 \arguments{
 \item{map}{a map widget object}
+
+\item{id}{character id}
 
 \item{options}{list of options, e.g. \code{options = list(position = "right")}}
 }
@@ -25,11 +36,14 @@ pane1 <- ' <h1 class="sidebar-header"> Tab1
 <p>A responsive sidebar for <a href="http://leafletjs.com/">Leaflet</a>.</p>
 '
 pane2 <- '<h1 class="sidebar-header">Tab2<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>'
-leaflet() \%>\% addTiles() \%>\% addLeafletSidebar(options = list(position = "right")) \%>\% 
-  addPanel(layerId = "Tab1", tab_name = "Tab1", pane = pane)
+leaflet() \%>\% addTiles() \%>\% addLeafletSidebar(id = "a", options = list(position = "right")) \%>\% 
+  addPanel(sidebarId = "a", layerId = "Tab1", tab_name = "Tab1", pane = pane1)
 
 }
 
+library(leaflet)
+leaflet() \%>\% addTiles() \%>\% addLeafletSidebar(id = "a", options = list(position = "right")) \%>\% 
+  removeLeafletSidebar()
 }
 \seealso{
 \href{https://github.com/nickpeihl/leaflet-sidebar-v2}{Github: leaflet-sidebar}

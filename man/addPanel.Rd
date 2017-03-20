@@ -2,14 +2,23 @@
 % Please edit documentation in R/leafletSidebar.R
 \name{addPanel}
 \alias{addPanel}
+\alias{removePanel}
 \title{Add panel to leaflet sidebar}
 \usage{
-addPanel(map, layerId, tab_name, pane, position = "top")
+addPanel(map, sidebarId, layerId, tab_name, pane, position = "top")
+
+removePanel(map, sidebarId, layerId, tab_name)
 }
 \arguments{
 \item{map}{a map widget object}
 
-\item{tab_name}{character the name of the tab}
+\item{sidebarId}{id of the sidebar}
+
+\item{layerId}{id of the panel}
+
+\item{tab_name}{character the name of the panel}
+
+\item{pane}{character html content}
 
 \item{position}{character: top or bottom}
 }
