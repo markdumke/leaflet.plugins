@@ -1,7 +1,7 @@
 Package: leaflet.plugins
 Type: Package
 Title: Plugins for Leaflet
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Author: Markus Dumke
 Maintainer: Markus Dumke <markusdumke@gmail.com>
 Description: Plugins for Leaflet.

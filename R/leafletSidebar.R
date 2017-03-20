@@ -3,62 +3,50 @@ leafletSidebarDependency <- function() {
   list(
     htmltools::htmlDependency(
       "leaflet-sidebar",
-      "2.7.0", # change this?
-      system.file("htmlwidgets/lib/leaflet-sidebar", package = "leaflet.sidebar"),
-      script = c("leaflet-sidebar.min.js"),
+      "0.1.0",
+      system.file("htmlwidgets/lib/leaflet-sidebar", package = "leaflet.plugins"),
+      script = c("leaflet-sidebar.js", "leaflet-sidebar-binding.js"),
       stylesheet = "leaflet-sidebar.css"
     ))
 }
 
-#' Add responsive sidebar to the map
+#' Add responsive sidebar to a leaflet map
+#'
+#' Types of events: Opening, closing and content
 #'
 #' @param map a map widget object
+#' @param pane html content as character
+#' @param options list of options, e.g. `options = list(position = "right")`
 #' @return modified map
 #' @import htmltools
 #' @export
 #' @seealso [Github: leaflet-sidebar](https://github.com/nickpeihl/leaflet-sidebar-v2)
 #' @examples
+#' \dontrun{
 #' library(leaflet)
-#' leaflet() %>% addTiles() %>% addResponsiveSidebar()
-addResponsiveSidebar <- function(map) {
+#' pane1 <- ' <h1 class="sidebar-header"> Tab1
+#' <span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+#' <p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p>
+#' '
+#' pane2 <- '<h1 class="sidebar-header">Tab2<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>'
+#' leaflet() %>% addTiles() %>% addLeafletSidebar(options = list(position = "right"), pane1, pane2)
+#' 
+#' }
+#' 
+addLeafletSidebar <- function(map, options, pane, pane2) {
   map$dependencies <- c(map$dependencies, leafletSidebarDependency())
-  invokeMethod(map, getMapData(map), 'leaflet-sidebar')
+  invokeMethod(map, getMapData(map), 'addLeafletSidebar', options, pane, pane2)
 }
 
-# leaflet() %>% addTiles() %>% addResponsiveSidebar()
+# sidebar.addPanel(panelContent);
+#   sidebar.removePanel('userinfo');
+#   sidebar.disablePanel('userinfo');
+# sidebar.enablePanel('userinfo');
 
-# l <- leaflet() %>% addTiles() %>% setView(0, 52, 5)
-# 
-# f <- function (map, lng = NULL, lat = NULL, data = getMapData(map)){
-#   pts = derivePoints(data, lng, lat, missing(lng), missing(lat), "addMarkers")
-#   invokeMethod(map, data, "addMarkers", pts$lat, pts$lng)
-# }
-# 
-# l %>% f(51, 5)
-# 
-# l %>% htmlwidgets::onRender("
-#     function(el, x) {
-#       var myMap = this;
-#           L.marker([51.5, -0.09]).addTo(mymap)
-#           .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-#           .openPopup();
-#     }")
-# 
-# 
-# library(leaflet)
-# library(htmlwidgets)
-# 
-# # This example uses browser geolocation. RStudio users:
-# # this won't work in the Viewer pane; try popping it
-# # out into your system web browser.
-# leaflet() %>% addTiles() %>%
-#   onRender("
-#     function(el, x) {
-# L.marker([48.85, 2.35],
-#   {
-#     boolean bounceOnAdd,
-#     object bounceOnAddOptions,
-#     function bounceOnAddCallback
-#   }).addTo(this);
-#     }
-#   ")
+#   sidebar.open('userinfo');
+#   sidebar.close();
+
+# sidebar.on('content', function(e) {
+#   // e.id contains the id of the opened panel
+# })
+
