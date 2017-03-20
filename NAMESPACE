@@ -2,6 +2,7 @@
 
 export(addBounceMarkers)
 export(addLeafletSidebar)
+export(addPanel)
 import(htmltools)
 import(leaflet)
 importFrom(htmltools,htmlDependency)
