@@ -13,3 +13,4 @@ Depends:
     leaflet (>= 1.1.0),
     htmltools (>= 0.3.5)
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)

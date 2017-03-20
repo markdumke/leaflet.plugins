@@ -4,18 +4,26 @@
 \alias{addBounceMarkers}
 \title{Add Bounce Markers to map}
 \usage{
-addBounceMarkers(map, lat, lng)
+addBounceMarkers(map, lat, lng, duration = 1000, height = 100)
 }
 \arguments{
-\item{map}{map object created by [leaflet::leaflet]}
+\item{map}{map object created by \link[leaflet:leaflet]{leaflet::leaflet}}
 
 \item{lat}{numeric latitude}
 
 \item{lng}{numeric longitude}
+
+\item{duration}{integer scalar: The duration of the animation in milliseconds.}
+
+\item{height}{integer scalar: Height at which the marker is dropped.}
 }
 \description{
 Add Bounce Markers to map
 }
 \examples{
+library(leaflet)
 # leaflet() \%>\% addTiles() \%>\% addBounceMarkers(49, 11)
+}
+\seealso{
+\href{https://github.com/maximeh/leaflet.bouncemarker}{Github: leaflet.bouncemarker}
 }
