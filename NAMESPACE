@@ -2,6 +2,7 @@
 
 export(addBounceMarkers)
 export(addLeafletSidebar)
+export(addMousePosition)
 export(addPanel)
 export(closeLeafletSidebar)
 export(openLeafletSidebar)
